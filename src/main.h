@@ -58,7 +58,36 @@ struct CBlockTemplate;
 struct CNodeStateStats;
 
 inline int64_t GetMstrNodCollateral(int nHeight){
-      return 3000;
+
+	if (nHeight < Params().LAST_POW_BLOCK() && nHeight > 1) {
+        return 2000;
+    }
+    else if (nHeight < 20000 && nHeight > 251) {
+        return 2000;
+    }
+    else if (nHeight < 50000 && nHeight > 20001) {
+        return 4000;
+    }
+    else if (nHeight < 125000 && nHeight > 50001) {
+        return 6000;
+    }
+    else if (nHeight < 250000 && nHeight > 125001) {
+        return 12000;
+    }
+    else if (nHeight < 350000 && nHeight > 250001) {
+        return 24000;
+    }
+    else if (nHeight < 500000 && nHeight > 350001) {
+        return 24000;
+    }
+    else if (nHeight < 1000000 && nHeight > 500001) {
+        return 24000;
+    }
+    else {
+        return 24000;
+    }
+    
+      
 }
 
 /** Default for -blockmaxsize and -blockminsize, which control the range of sizes the mining code will create **/
