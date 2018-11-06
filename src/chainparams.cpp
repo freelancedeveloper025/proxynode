@@ -54,7 +54,7 @@ static void convertSeed6(std::vector<CAddress>& vSeedsOut, const SeedSpec6* data
 // + Contains no strange transactions
 static Checkpoints::MapCheckpoints mapCheckpoints =
     boost::assign::map_list_of
-    (1, uint256("0x0000034874569c37a1dc255aa2a488b777ca09e3ac0ca031d3a90660333197b7"));
+    (0, uint256("0x0000034874569c37a1dc255aa2a488b777ca09e3ac0ca031d3a90660333197b7"));
 static const Checkpoints::CCheckpointData data = {
     &mapCheckpoints,
     1536168107, // * UNIX timestamp of last checkpoint block
@@ -100,11 +100,11 @@ public:
          * The characters are rarely used upper ASCII, not valid as UTF-8, and produce
          * a large 4-byte int at any alignment.
          */
-        pchMessageStart[0] = 0xaf;
-        pchMessageStart[1] = 0x95;
-        pchMessageStart[2] = 0x1d;
+        pchMessageStart[0] = 0x4f;
+        pchMessageStart[1] = 0xd5;
+        pchMessageStart[2] = 0x9d;
         pchMessageStart[3] = 0xd9;
-        vAlertPubKey = ParseHex("0317dc37cb1011c0a162fc11335812349817392cdad2a12b85a0f841c4c48346bd85f45ec5c1d");
+        vAlertPubKey = ParseHex("0317dc37db1011c0a162fc11335812349817392cdad2a12b85a0f841c4c48346bd85f45ec5c1d");
         nDefaultPort = 12195;
         bnProofOfWorkLimit = ~uint256(0) >> 20; // PROXYNODE starting difficulty is 1 / 2^12
         nSubsidyHalvingInterval = 210000;
@@ -118,12 +118,12 @@ public:
         nTargetSpacing = 1 * 60;  // PROXYNODE: 60 Seconds
         nMaturity = 10;
         nMasternodeCountDrift = 20;
-        nMaxMoneyOut = 21000000  * COIN;
+        nMaxMoneyOut = 275000000  * COIN;
 
         /** Height or Time Based Activations **/
         nLastPOWBlock = 120;
         nModifierUpdateBlock = 999999999;
-        nZerocoinStartHeight = 121;
+        nZerocoinStartHeight = 252;
         nAccumulatorStartHeight = 1;
         nZerocoinStartTime = 1536221253; // 14 - apr - 2018
         nBlockEnforceSerialRange = 1; //Enforce serial range starting this block
@@ -137,29 +137,24 @@ public:
         txNew.vout.resize(1);
         txNew.vin[0].scriptSig = CScript() << 486604799 << CScriptNum(4) << vector<unsigned char>((const unsigned char*)pszTimestamp, (const unsigned char*)pszTimestamp + strlen(pszTimestamp));
         txNew.vout[0].nValue = 1 * COIN;
-        txNew.vout[0].scriptPubKey = CScript() << ParseHex("042292b1f401860eea99e1a8a103effbd7e1c013a59a1a3a0c91c9d1997a0bc6f338567278c11344802838c107055bf7c1641eaed61e879245c255a4f5be5746fc") << OP_CHECKSIG;
+        txNew.vout[0].scriptPubKey = CScript() << ParseHex("042292b1f401860eea99e1a8aab3effbd7e1c013a59a1a3a0c91c9d1997a0bc6f338567278c11344802838c107055bf7c1641eaed61e879245c255a4f5be5746fc") << OP_CHECKSIG;
         genesis.vtx.push_back(txNew);
         genesis.hashPrevBlock = 0;
         genesis.hashMerkleRoot = genesis.BuildMerkleTree();
         genesis.nVersion = 1;
-        genesis.nTime = 1536121253;
+        genesis.nTime = 1536621253;
         genesis.nBits = 0x1e0ffff0;
-        genesis.nNonce = 812278;
+        genesis.nNonce = 1634836;
+		
+		hashGenesisBlock = genesis.GetHash();
+        assert(hashGenesisBlock == uint256("0x000002d5a967ee5a93d36c2de7dd0cf23d9cb5d1b265104e4a4bebfd0593ad15"));
+        assert(genesis.hashMerkleRoot == uint256("0xe658d8c00694e7a288d399ad881dc3fcd7629527aae7f5cd9aead0fddff982eb"));
 
-        hashGenesisBlock = genesis.GetHash();
-        assert(hashGenesisBlock == uint256("0x00000d20040b57d13e86136d8c058d8fb717056e28fdad75fa01aa9f97ee3a3d"));
-        assert(genesis.hashMerkleRoot == uint256("0x0bfbd8a4a84428f1c989c0cc3bdb69e624f6c2401bbccc8f46ac0b3a5beee176"));
+    	vSeeds.push_back(CDNSSeedData("178.238.235.79", "178.238.235.79"));
+        vSeeds.push_back(CDNSSeedData("79.143.189.105", "79.143.189.105"));
+		vSeeds.push_back(CDNSSeedData("185.2.103.114", "185.2.103.114"));
 
-    	vSeeds.push_back(CDNSSeedData("45.32.226.207", "45.32.226.207"));
-        vSeeds.push_back(CDNSSeedData("168.235.105.177", "168.235.105.177"));
-        vSeeds.push_back(CDNSSeedData("168.235.109.205", "168.235.109.205"));
-        vSeeds.push_back(CDNSSeedData("81.4.101.233", "81.4.101.233"));
-        vSeeds.push_back(CDNSSeedData("185.52.2.37", "185.52.2.37"));
-        vSeeds.push_back(CDNSSeedData("185.52.3.82", "185.52.3.82 "));
-        vSeeds.push_back(CDNSSeedData("45.63.119.129", "45.63.119.129"));
-		vSeeds.push_back(CDNSSeedData("149.28.150.45", "149.28.150.45"));
-
-        base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1, 73); // W
+        base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1, 55); // P
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1, 138); // x
         base58Prefixes[SECRET_KEY] = std::vector<unsigned char>(1, 98); // g
         base58Prefixes[EXT_PUBLIC_KEY] = boost::assign::list_of(0x02)(0x2D)(0x25)(0x73).convert_to_container<std::vector<unsigned char> >();
@@ -238,11 +233,11 @@ public:
 
         //! Modify the testnet genesis block so the timestamp is valid for a later start.
         genesis.nTime = 1515616140;
-        genesis.nNonce = 2445536;
-
+        genesis.nNonce = 0;
+		
 		 
 	    hashGenesisBlock = genesis.GetHash();
-        assert(hashGenesisBlock == uint256("0x0000056827e40644891c21c3171bc2077810a88a3ba9ee34b6965645fca68c2e"));
+        //assert(hashGenesisBlock == uint256("0x0000056827e40644891c21c3171bc2077810a88a3ba9ee34b6965645fca68c2e"));
 
         vFixedSeeds.clear();
         vSeeds.clear();
@@ -311,7 +306,7 @@ public:
 
         hashGenesisBlock = genesis.GetHash();
         nDefaultPort = 51436;
-        assert(hashGenesisBlock == uint256("0x00000cafddda123ec898c0e9fb4795e7ebed59615ba3c02895520fabdda9dadc"));
+        //assert(hashGenesisBlock == uint256("0x00000cafddda123ec898c0e9fb4795e7ebed59615ba3c02895520fabdda9dadc"));
 
         vFixedSeeds.clear(); //! Testnet mode doesn't have any fixed seeds.
         vSeeds.clear();      //! Testnet mode doesn't have any DNS seeds.
