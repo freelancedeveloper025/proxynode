@@ -1,0 +1,26 @@
+# /etc/conf.d/proxynoded: config file for /etc/init.d/proxynoded
+
+# Config file location
+#BITCOIND_CONFIGFILE="/etc/proxynode/proxynode.conf"
+
+# What directory to write pidfile to?  (created and owned by $BITCOIND_USER)
+#BITCOIND_PIDDIR="/var/run/proxynoded"
+
+# What filename to give the pidfile
+#BITCOIND_PIDFILE="${BITCOIND_PIDDIR}/proxynoded.pid"
+
+# Where to write proxynoded data (be mindful that the blockchain is large)
+#BITCOIND_DATADIR="/var/lib/proxynoded"
+
+# User and group to own proxynoded process
+#BITCOIND_USER="proxynode"
+#BITCOIND_GROUP="proxynode"
+
+# Path to proxynoded executable
+#BITCOIND_BIN="/usr/bin/proxynoded"
+
+# Nice value to run proxynoded under
+#BITCOIND_NICE=0
+
+# Additional options (avoid -conf and -datadir, use flags above)
+BITCOIND_OPTS=""

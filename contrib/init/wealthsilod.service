@@ -1,0 +1,26 @@
+[Unit]
+Description=PROXYNODE's distributed currency daemon
+After=network.target
+
+[Service]
+User=proxynode
+Group=proxynode
+
+Type=forking
+PIDFile=/var/lib/proxynoded/proxynoded.pid
+
+ExecStart=/usr/bin/proxynoded -daemon -pid=/var/lib/proxynoded/proxynoded.pid \
+          -conf=/etc/proxynode/proxynode.conf -datadir=/var/lib/proxynoded
+
+ExecStop=-/usr/bin/proxynode-cli -conf=/etc/proxynode/proxynode.conf \
+         -datadir=/var/lib/proxynoded stop
+
+Restart=always
+PrivateTmp=true
+TimeoutStopSec=60s
+TimeoutStartSec=2s
+StartLimitInterval=120s
+StartLimitBurst=5
+
+[Install]
+WantedBy=multi-user.target
