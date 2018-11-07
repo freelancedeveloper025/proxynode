@@ -10,7 +10,7 @@ Algorithm: Quark</br>
 Maximum Supply: 21,000,000 PRX</br>
 Block Reward: Adjusted every 10,000 block</br>
 Port=12195</br>
-Rpcport=12195</br>
+Rpcport=12196</br>
 Masternode Reward: 95%</br>
 Staking Reward: 5%</br>
 Masternode collateral:  3000 PRX</br>
